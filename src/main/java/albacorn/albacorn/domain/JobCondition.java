@@ -13,7 +13,7 @@ import java.util.List;
 public class JobCondition {
 
     @Id @GeneratedValue
-    @Column(name = "company_id")
+    @Column(name = "job_condition_id")
     private Long id;
 
     @OneToOne(mappedBy = "jobCondition", fetch = FetchType.LAZY)
@@ -25,4 +25,8 @@ public class JobCondition {
     @OneToMany(mappedBy = "jobCondition")
     private List<JobPost> jobPosts = new ArrayList<>();
 
+    public JobCondition(Long activatedCount, Long deactivatedCount) {
+        this.activatedCount = activatedCount;
+        this.deactivatedCount = deactivatedCount;
+    }
 }
