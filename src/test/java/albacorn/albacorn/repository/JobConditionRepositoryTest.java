@@ -14,7 +14,6 @@ import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-@Rollback(value = false)
 class JobConditionRepositoryTest {
 
     @Autowired
@@ -63,6 +62,5 @@ class JobConditionRepositoryTest {
 
         long deleteCount = jobConditionRepository.count();
         assertThat(deleteCount).isEqualTo(0);
-
     }
 }

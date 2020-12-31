@@ -6,6 +6,7 @@ import javax.persistence.*;
 public class JobPost {
 
     @Id @GeneratedValue
+    @Column(name = "job_post_id")
     private Long    id;
 
     private String  title;
@@ -26,4 +27,7 @@ public class JobPost {
     @JoinColumn(name = "job_condition_id")
     private JobCondition jobCondition;
 
+    public JobPost(String title) {
+        this.title = title;
+    }
 }
