@@ -22,7 +22,7 @@ class JobConditionRepositoryTest {
     @Test
     public void testJobCondition() throws Exception {
         //given
-        JobCondition jobCondition = new JobCondition(0L, 0L);
+        JobCondition jobCondition = new JobCondition(0, 0);
         JobCondition saveJobCondition = jobConditionRepository.save(jobCondition);
         //when
         JobCondition findJobCondition = jobConditionRepository.findById(saveJobCondition.getId()).orElseThrow(NullPointerException::new);
@@ -35,8 +35,8 @@ class JobConditionRepositoryTest {
     @Test
     public void basicCRUD() throws Exception {
         //given
-        JobCondition jobCondition1 = new JobCondition(0L, 0L);
-        JobCondition jobCondition2 = new JobCondition(0L, 0L);
+        JobCondition jobCondition1 = new JobCondition(0, 0);
+        JobCondition jobCondition2 = new JobCondition(0, 0);
         jobConditionRepository.save(jobCondition1);
         jobConditionRepository.save(jobCondition2);
 

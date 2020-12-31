@@ -19,13 +19,13 @@ public class JobCondition {
     @OneToOne(mappedBy = "jobCondition", fetch = FetchType.LAZY)
     private Company company;
 
-    private Long activatedCount;
-    private Long deactivatedCount;
+    private int activatedCount;
+    private int deactivatedCount;
 
     @OneToMany(mappedBy = "jobCondition")
     private List<JobPost> jobPosts = new ArrayList<>();
 
-    public JobCondition(Long activatedCount, Long deactivatedCount) {
+    public JobCondition(int activatedCount, int deactivatedCount) {
         this.activatedCount = activatedCount;
         this.deactivatedCount = deactivatedCount;
     }

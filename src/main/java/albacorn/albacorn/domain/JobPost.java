@@ -1,8 +1,11 @@
 package albacorn.albacorn.domain;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 
 @Entity
+@Getter
 public class JobPost {
 
     @Id @GeneratedValue
