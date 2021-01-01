@@ -25,6 +25,14 @@ public class UserQueryServiceImpl implements UserQueryService{
         return all.stream().map(this::transferUserToDto).collect(Collectors.toList());
     }
 
+    @Override
+    public UserQueryDto findByUserId(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("존재하지 않은 User ID 입니다."));
+        return transferUserToDto(user);
+    }
+
+
     public UserQueryDto transferUserToDto(User user) {
         return new UserQueryDto(user.getName());
     }

@@ -8,15 +8,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
 import javax.transaction.Transactional;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
+@Rollback(value = false)
 class UserQueryServiceImplTest {
 
     @Autowired
@@ -44,7 +47,16 @@ class UserQueryServiceImplTest {
         //when
         List<UserQueryDto> all = userQueryService.All();
         //then
-        Assertions.assertThat(all.size()).isEqualTo(5);
+        assertThat(all.size()).isEqualTo(5);
     }
 
+    @Test
+    public void findByUserId() throws Exception {
+        //when
+        UserQueryDto findUser1 = userQueryService.findByUserId(1L);
+        //then
+        assertThat(findUser1.getName()).isEqualTo("user1");
+
+        assertThrows(IllegalStateException.class, () -> userQueryService.findByUserId(0L));
+    }
 }
