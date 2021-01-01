@@ -5,4 +5,6 @@ public interface UserCommandService {
     Long register(UserCommandDto dto);
 
     void update(Long id, UserCommandDto dto);
+
+    void delete(Long id);
 }

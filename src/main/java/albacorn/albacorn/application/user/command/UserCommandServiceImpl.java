@@ -30,6 +30,12 @@ public class UserCommandServiceImpl implements UserCommandService {
         user.update(transferDtoToUser(dto));
     }
 
+    @Override
+    public void delete(Long id) {
+        User findUser = userRepository.findById(id).orElseThrow(NullPointerException::new);
+        userRepository.delete(findUser);
+    }
+
     public User transferDtoToUser(UserCommandDto dto) {
         return new User(dto.getName());
     }

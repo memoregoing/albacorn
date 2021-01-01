@@ -46,4 +46,24 @@ class UserCommandServiceTest {
         //then
         Assertions.assertThat(findUser.getName()).isEqualTo("change name");
     }
+
+    @Test
+    public void deleteUser() throws Exception {
+        //given
+        User user1 = new User("user1");
+        User user2 = new User("user2");
+        User user3 = new User("user3");
+        userRepository.save(user1);
+        userRepository.save(user2);
+        userRepository.save(user3);
+        User findUser1 = userRepository.findById(user1.getId()).orElseThrow();
+        User findUser2 = userRepository.findById(user2.getId()).orElseThrow();
+        User findUser3 = userRepository.findById(user3.getId()).orElseThrow();
+        //when
+        Assertions.assertThat(userRepository.count()).isEqualTo(3);
+        userCommandService.delete(findUser1.getId());
+        userCommandService.delete(findUser2.getId());
+        //then
+        Assertions.assertThat(userRepository.count()).isEqualTo(1);
+    }
 }
