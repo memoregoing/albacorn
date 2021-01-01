@@ -28,10 +28,22 @@ class UserCommandServiceTest {
         //given
         UserCommandDto userDto = new UserCommandDto("user");
         //when
-        Long saveId = userCommandService.registerUser(userDto);
+        Long saveId = userCommandService.register(userDto);
         User findUser = userRepository.findById(saveId).orElseThrow();
         //then
         Assertions.assertThat(findUser.getName()).isEqualTo(userDto.getName());
     }
 
+    @Test
+    public void updateUser() throws Exception {
+        //given
+        User user = new User("nakim");
+        userRepository.save(user);
+        User findUser = userRepository.findById(user.getId()).orElseThrow();
+        UserCommandDto userCommandDto = new UserCommandDto("change name");
+        //when
+        userCommandService.update(findUser.getId(), userCommandDto);
+        //then
+        Assertions.assertThat(findUser.getName()).isEqualTo("change name");
+    }
 }

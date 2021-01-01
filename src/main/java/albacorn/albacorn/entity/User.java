@@ -21,4 +21,8 @@ public class User {
     public User(String name) {
         this.name = name;
     }
+
+    public void update(User user) {
+        this.name = user.getName();
+    }
 }

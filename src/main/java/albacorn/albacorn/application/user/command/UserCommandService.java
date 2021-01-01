@@ -1,5 +1,8 @@
 package albacorn.albacorn.application.user.command;
 
 public interface UserCommandService {
-    Long registerUser(UserCommandDto dto);
+
+    Long register(UserCommandDto dto);
+
+    void update(Long id, UserCommandDto dto);
 }
