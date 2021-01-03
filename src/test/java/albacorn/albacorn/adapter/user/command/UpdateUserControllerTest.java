@@ -2,7 +2,10 @@ package albacorn.albacorn.adapter.user.command;
 
 import albacorn.albacorn.application.user.command.UserCommandDto;
 import albacorn.albacorn.application.user.command.UserCommandService;
+import albacorn.albacorn.entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -13,35 +16,45 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static albacorn.albacorn.adapter.user.command.UpdateUserController.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doAnswer;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.mockito.BDDMockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
-@WebMvcTest(CreateUserController.class)
-class CreateUserControllerTest {
+@WebMvcTest(UpdateUserController.class)
+class UpdateUserControllerTest {
 
     @Autowired
     MockMvc mockMvc;
 
-    @MockBean
-    UserCommandService userCommandService;
-
     @Autowired
     ObjectMapper objectMapper;
 
+    @MockBean
+    UserCommandService userCommandService;
+
     @Test
-    public void registerUserController() throws Exception {
-        //give
-        String content = asJsonString(new CreateUserController.CreateUserRequest("Hakim"));
-        when(userCommandService.register(any(UserCommandDto.class))).thenReturn(2L);
-        mockMvc.perform(post("/api/v1/users")
+    public void updateUser() throws Exception {
+        //given
+        UpdateUserRequest requestDto = new UpdateUserRequest("Hakim");
+        String content = asJsonString(requestDto);
+        //when
+        mockMvc.perform(put("/api/v1/users/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(content))
-                .andDo(print())
-                .andExpect(status().isOk());
+                .andDo(print());
+        //then
+        doAnswer(invocation -> {
+            Long id = invocation.getArgument(0);
+            UserCommandDto dto = invocation.getArgument(1);
+            assertEquals(id, 1L);
+            assertEquals(dto.getName(), requestDto.getName());
+            return null;
+        }).when(userCommandService).update(any(Long.class), any(UserCommandDto.class));
     }
 
     public static String asJsonString(final Object obj) {
