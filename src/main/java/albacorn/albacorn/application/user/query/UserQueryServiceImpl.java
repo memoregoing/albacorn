@@ -3,6 +3,8 @@ package albacorn.albacorn.application.user.query;
 import albacorn.albacorn.entity.User;
 import albacorn.albacorn.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,9 +22,9 @@ public class UserQueryServiceImpl implements UserQueryService{
     }
 
     @Override
-    public List<UserQueryDto> All() {
-        List<User> all = userRepository.findAll();
-        return all.stream().map(this::transferUserToDto).collect(Collectors.toList());
+    public Page<UserQueryDto> AllUsers(int page, int size) {
+        Page<User> all = userRepository.findAll(PageRequest.of(page, size));
+        return all.map(this::transferUserToDto);
     }
 
     @Override

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.test.annotation.Rollback;
 
 import javax.transaction.Transactional;
@@ -45,10 +46,15 @@ class UserQueryServiceImplTest {
     @Test
     public void AllUser() throws Exception {
         //when
-        List<UserQueryDto> all = userQueryService.All();
+        Page<UserQueryDto> page = userQueryService.AllUsers(0, 2);
         //then
-        assertThat(all.size()).isEqualTo(5);
+        assertThat(page.getContent().size()).isEqualTo(2);
+        assertThat(page.getTotalElements()).isEqualTo(5);
+        assertThat(page.getNumber()).isEqualTo(0);
+        assertThat(page.isFirst()).isTrue();
+        assertThat(page.hasNext()).isTrue();
     }
+
 
     @Test
     public void findByUserId() throws Exception {
