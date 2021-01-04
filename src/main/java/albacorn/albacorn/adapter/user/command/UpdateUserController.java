@@ -16,7 +16,7 @@ public class UpdateUserController {
     private final UserCommandService userCommandService;
 
     @PutMapping("/api/v1/users/{id}")
-    void updateUser(@PathVariable("id") Long id, @RequestBody @Valid UpdateUserRequest request) {
+    public void updateUser(@PathVariable("id") Long id, @RequestBody @Valid UpdateUserRequest request) {
         userCommandService.update(id, transferRequestToDto(request));
     }
 
