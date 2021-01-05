@@ -27,6 +27,7 @@ public class CreateUserController {
     @Data
     @NoArgsConstructor
     static class CreateUserRequest {
+        
         private String name;
 
         public CreateUserRequest(String name) {

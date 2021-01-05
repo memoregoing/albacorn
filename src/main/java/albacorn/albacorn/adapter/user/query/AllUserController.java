@@ -20,5 +20,4 @@ public class AllUserController {
     public Page<UserQueryDto> findAllUsers(@Param("page") int page, @Param("size") int size) {
         return userQueryService.AllUsers(page, size);
     }
-
 }
