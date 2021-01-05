@@ -15,7 +15,6 @@ public class FindByUserIdentifierController {
 
     @GetMapping("/api/v1/users/{userId}")
     public UserQueryDto findByUserIdentifier(@PathVariable("userId") Long userId) {
-
         return userQueryService.findByUserId(userId);
     }
 }

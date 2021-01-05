@@ -34,7 +34,6 @@ public class UserQueryServiceImpl implements UserQueryService{
         return transferUserToDto(user);
     }
 
-
     public UserQueryDto transferUserToDto(User user) {
         return new UserQueryDto(user.getName());
     }

@@ -1,6 +1,7 @@
 package albacorn.albacorn.application.user.query;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
